@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Panggil Seeder yang sudah dibuat untuk Direktori, Kawasan, dan Negara
+    
         $this->call([
             DirektoratTableSeeder::class,
             KawasanTableSeeder::class,

@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 class NegaraController extends Controller
 {
     public function index(Request $request) {
-        $perPage = $request->input('length', 10); // jumlah data per halaman
-        $page = $request->input('start', 0) / $perPage + 1; // halaman saat ini
+        $perPage = $request->input('length', 10); 
+        $page = $request->input('start', 0) / $perPage + 1; 
 
         $query = Negara::with('kawasan', 'direktorat');
 
-        // Menambahkan pencarian jika ada
+
         if ($search = $request->input('search.value')) {
             $query->where(function($query) use ($search) {
                 $query->where('nama_negara', 'like', "%{$search}%")
@@ -27,7 +27,7 @@ class NegaraController extends Controller
             });
         }
 
-        $totalRecords = $query->count(); // Total records tanpa filter
+        $totalRecords = $query->count(); 
         $data = $query->skip($request->input('start', 0))
                       ->take($perPage)
                       ->get();

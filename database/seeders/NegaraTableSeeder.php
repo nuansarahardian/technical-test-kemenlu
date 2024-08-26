@@ -22,7 +22,7 @@ class NegaraTableSeeder extends Seeder
         foreach ($countries as $country) {
             $coordinates = $this->getCoordinates($country['name']);
             
-            // Debug output
+   
             if ($coordinates['latitude'] === null || $coordinates['longitude'] === null) {
                 \Log::warning("Coordinates not found for country: " . $country['name']);
             }
@@ -51,13 +51,13 @@ class NegaraTableSeeder extends Seeder
                     'key' => $apiKey,
                     'limit' => 1,
                 ],
-                'verify' => false, // Nonaktifkan verifikasi SSL
+                'verify' => false, 
             ]);
             
 
             $data = json_decode($response->getBody(), true);
 
-            // Debug output
+       
             \Log::info("API response for country '{$country}':", $data);
 
             if (!empty($data['results'])) {

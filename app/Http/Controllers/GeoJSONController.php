@@ -8,7 +8,7 @@ class GeoJSONController extends Controller
 {
     public function getGeoJSON()
     {
-        $path = storage_path('app/public/map.geojson'); // Adjust path as needed
+        $path = storage_path('app/public/map.geojson'); 
         if (file_exists($path)) {
             return response()->file($path);
         } else {

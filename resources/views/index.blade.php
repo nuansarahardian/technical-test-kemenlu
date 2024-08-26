@@ -25,7 +25,6 @@
         .table thead th {
             background-color: #007bff;
             color: white;
-            margin-top: 10px;
         }
         .table tbody tr:nth-child(odd) {
             background-color: #f2f2f2;
@@ -60,7 +59,6 @@
         }
     </style>
 </head>
-
 <body>
     @include('partials.navbar')
     
@@ -121,7 +119,7 @@
                     { data: 'kawasan.nama_kawasan', name: 'kawasan.nama_kawasan' },
                     { data: 'direktorat.nama_direktorat', name: 'direktorat.nama_direktorat' },
                     { data: 'created_at', name: 'created_at', render: function(data) {
-                        return new Date(data).toLocaleDateString(); // Format tanggal
+                        return new Date(data).toLocaleDateString(); 
                     }},
                     { 
                         data: 'id_negara',
@@ -133,10 +131,12 @@
                         }
                     }
                 ],
-                dom: 'Bfrtip', // Menampilkan tombol export di atas DataTable
+                dom: 'lBfrtip', 
                 buttons: [
                     'copy', 'excel', 'pdf'
                 ],
+                pageLength: 10,
+                lengthMenu: [5, 10, 15, 20], 
                 drawCallback: function(settings) {
                     console.log('Total records:', settings.json.recordsTotal);
                 }
@@ -152,10 +152,10 @@
                         url: url,
                         success: function (data) {
                             table.ajax.reload();
-                            alert(data.message);
+                            alert(data.success);
                         },
                         error: function (data) {
-                            alert(data.responseJSON.message);
+                            alert(data.responseJSON.error);
                         }
                     });
                 }

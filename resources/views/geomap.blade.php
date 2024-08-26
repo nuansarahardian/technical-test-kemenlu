@@ -41,21 +41,20 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         $(document).ready(function() {
-            // Inisialisasi peta
+       
             var map = L.map('map').setView([0, 0], 2);
 
-            // Tambahkan tile layer dari OpenStreetMap
+    
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 18,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
 
-            // Ambil data GeoJSON dari endpoint
             $.getJSON('{{ route("api.geojson") }}', function(geojsonData) {
-                // Tambahkan layer GeoJSON ke peta
+       
                 L.geoJSON(geojsonData, {
                     onEachFeature: function (feature, layer) {
-                        // Tambahkan tooltip untuk setiap fitur GeoJSON
+                  
                         var description = feature.properties.description || 'No description available';
                         layer.bindTooltip(
                             `<div>
@@ -74,12 +73,12 @@
                 console.error('Error fetching GeoJSON data');
             });
 
-            // Ambil data dari API menggunakan AJAX
+       
             $.ajax({
-                url: '{{ route("api.negara") }}', // API endpoint Laravel Anda
+                url: '{{ route("api.negara") }}', 
                 method: 'GET',
                 success: function(response) {
-                    processData(response.data); // Ambil data dari response JSON
+                    processData(response.data); 
                 },
                 error: function(error) {
                     console.error('Error fetching data', error);
@@ -87,12 +86,12 @@
             });
 
             function processData(data) {
-                // Warna kawasan berdasarkan direktorat
+         
                 var colors = {
-                    1: '#ff0000', // Direktori 1
-                    2: '#00ff00', // Direktori 2
-                    3: '#0000ff', // Direktori 3
-                    // Tambahkan lebih banyak direktorat jika diperlukan
+                    1: '#ff0000', 
+                    2: '#00ff00', 
+                    3: '#0000ff', 
+                   
                 };
 
                 data.forEach(function(negara) {
@@ -101,10 +100,10 @@
                     var kawasan = negara.kawasan ? negara.kawasan.nama_kawasan : 'N/A';
                     var direktorat = negara.direktorat ? negara.direktorat.nama_direktorat : 'N/A';
                     var namaNegara = negara.nama_negara;
-                    var flagUrl = `https://flagcdn.com/32x24/${negara.kode_negara.toLowerCase()}.png`; // URL untuk mendapatkan bendera negara
+                    var flagUrl = `https://flagcdn.com/32x24/${negara.kode_negara.toLowerCase()}.png`; 
 
                     var marker = L.circleMarker([lat, lng], {
-                        color: colors[negara.id_direktorat] || '#000', // Warna berdasarkan direktorat
+                        color: colors[negara.id_direktorat] || '#000', 
                         radius: 10,
                         fillOpacity: 0.8
                     }).addTo(map);
